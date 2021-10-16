@@ -1,0 +1,29 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>所有文章 - lorry&#39;s blog</title>
+        <link>https://xslorry.github.io/posts/</link>
+        <description>所有文章 | lorry&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>luohairui123@foxmail.com (lorry)</managingEditor>
+            <webMaster>luohairui123@foxmail.com (lorry)</webMaster><lastBuildDate>Sat, 16 Oct 2021 15:58:04 &#43;0800</lastBuildDate><atom:link href="https://xslorry.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>SpirngSecurity</title>
+    <link>https://xslorry.github.io/spirngsecurity/</link>
+    <pubDate>Sat, 16 Oct 2021 15:58:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xslorry.github.io/spirngsecurity/</guid>
+    <description><![CDATA[SpirngSecurity 用户认证 用户授权 与Shiro对比 SSM+Shiro Spirng Boot/SpirngCloud +Spirng Security SpringSecurity本质上是一个过滤器链：有很多过滤器 FilterSecurityInt]]></description>
+</item><item>
+    <title>Springboot_autoconfig</title>
+    <link>https://xslorry.github.io/springboot_autoconfig/</link>
+    <pubDate>Sun, 05 Sep 2021 16:43:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xslorry.github.io/springboot_autoconfig/</guid>
+    <description><![CDATA[springboot自动装配原理入门 引导加载自动配置类 启动类注解@SpringBootApplication是三个注解的合成注解 @SpringBootConfiguration @Conf]]></description>
+</item><item>
+    <title>mybatis笔记</title>
+    <link>https://xslorry.github.io/first_post/</link>
+    <pubDate>Thu, 19 Aug 2021 10:10:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xslorry.github.io/first_post/</guid>
+    <description><![CDATA[代码 第一个mybatis程序 搭建环境 搭建数据库 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATEDATABASE`mybatis`;USE`mybati]]></description>
+</item></channel>
+</rss>

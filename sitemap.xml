@@ -1,0 +1,11 @@
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    ><url>
+            <loc>https://xslorry.github.io/</loc><lastmod>2021-10-16T15:58:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xslorry.github.io/posts/</loc><lastmod>2021-10-16T15:58:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xslorry.github.io/spirngsecurity/</loc><lastmod>2021-10-16T15:58:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xslorry.github.io/springboot_autoconfig/</loc><lastmod>2021-09-05T16:43:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xslorry.github.io/first_post/</loc><lastmod>2021-08-19T10:10:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xslorry.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xslorry.github.io/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>

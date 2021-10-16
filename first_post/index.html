@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>mybatis笔记 - lorry&#39;s blog</title><meta name="Description" content="骆海瑞的博客"><meta property="og:title" content="mybatis笔记" />
+<meta property="og:description" content="代码 第一个mybatis程序 搭建环境 搭建数据库 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATEDATABASE`mybatis`;USE`mybati" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xslorry.github.io/first_post/" /><meta property="og:image" content="https://xslorry.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-19T10:10:48+08:00" />
+<meta property="article:modified_time" content="2021-08-19T10:10:48+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xslorry.github.io/logo.png"/>
+
+<meta name="twitter:title" content="mybatis笔记"/>
+<meta name="twitter:description" content="代码 第一个mybatis程序 搭建环境 搭建数据库 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATEDATABASE`mybatis`;USE`mybati"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xslorry.github.io/first_post/" /><link rel="next" href="https://xslorry.github.io/springboot_autoconfig/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "mybatis笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xslorry.github.io\/first_post\/"
+        },"genre": "posts","wordcount":  10820 ,
+        "url": "https:\/\/xslorry.github.io\/first_post\/","datePublished": "2021-08-19T10:10:48+08:00","dateModified": "2021-08-19T10:10:48+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "lorry"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lorry&#39;s blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/calculator.png"
+        data-srcset="/calculator.png, /calculator.png 1.5x, /calculator.png 2x"
+        data-sizes="auto"
+        alt="/calculator.png"
+        title="/calculator.png" />骆海瑞的博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lorry&#39;s blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/calculator.png"
+        data-srcset="/calculator.png, /calculator.png 1.5x, /calculator.png 2x"
+        data-sizes="auto"
+        alt="/calculator.png"
+        title="/calculator.png" />骆海瑞的博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">mybatis笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>lorry</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-19">2021-08-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10820 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#搭建环境">搭建环境</a>
+      <ul>
+        <li><a href="#搭建数据库">搭建数据库</a></li>
+        <li><a href="#新建项目">新建项目</a></li>
+        <li><a href="#使用mybatis的基础配置">使用mybatis的基础配置</a>
+          <ul>
+            <li><a href="#编写mybatis的核心配置文件">编写mybatis的核心配置文件</a></li>
+            <li><a href="#编写mybatis工具类">编写mybatis工具类</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#实现crud">实现CRUD</a>
+      <ul>
+        <li><a href="#测试">测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#map传递参数">Map传递参数</a></li>
+    <li><a href="#mybatis的模糊查询">mybatis的模糊查询</a>
+      <ul>
+        <li><a href="#方式一">方式一：</a></li>
+        <li><a href="#方式二">方式二</a></li>
+        <li><a href="#方式三">方式三</a></li>
+        <li><a href="#方式四">方式四</a>
+          <ul>
+            <li><a href="#总结">总结：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#核心配置">核心配置</a>
+      <ul>
+        <li><a href="#环境配置">环境配置</a></li>
+        <li><a href="#属性properties">属性(properties)</a></li>
+        <li><a href="#类型别名typealiases">类型别名(typeAliases)</a>
+          <ul>
+            <li><a href="#类取别名">类取别名</a></li>
+            <li><a href="#指定包">指定包</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#日志工程">日志工程</a></li>
+    <li><a href="#log4j">LOG4J</a>
+      <ul>
+        <li><a href="#简单实用">简单实用</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#使用limit分页代码在mybatis_04">使用Limit分页（代码在mybatis_04）</a></li>
+    <li><a href="#rewbounds分页">RewBounds分页</a></li>
+    <li><a href="#分页插件">分页插件</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#面向接口编程">面向接口编程</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用注解开发-1">使用注解开发</a></li>
+    <li><a href="#crud">CRUD</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#编写sql创建数据库表">编写SQL，创建数据库表</a></li>
+    <li><a href="#按照查询嵌套处理">按照查询嵌套处理</a></li>
+    <li><a href="#按照结果嵌套处理">按照结果嵌套处理</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#按照查询嵌套处理子查询">按照查询嵌套处理(子查询)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#编写sql创建数据库表-1">编写SQL，创建数据库表</a></li>
+    <li><a href="#测试环境搭建">测试环境搭建</a></li>
+    <li><a href="#if">IF</a></li>
+    <li><a href="#choose">choose</a></li>
+    <li><a href="#set">set</a></li>
+    <li><a href="#foreach">Foreach</a></li>
+    <li><a href="#trim">trim</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#mybatis缓存">mybatis缓存</a></li>
+    <li><a href="#一级缓存">一级缓存</a></li>
+    <li><a href="#二级缓存">二级缓存</a></li>
+    <li><a href="#缓存原理">缓存原理</a></li>
+    <li><a href="#自定义缓存-ehcache">自定义缓存-ehcache</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis.jpg"
+        data-srcset="/mybatis.jpg, /mybatis.jpg 1.5x, /mybatis.jpg 2x"
+        data-sizes="auto"
+        alt="/mybatis.jpg"
+        title="avatar" /></p>
+<p>
+<a href="https://github.com/xslorry/lorry_javaNotebook.github.io" target="_self">代码</a></p>
+<h1 id="第一个mybatis程序">第一个mybatis程序</h1>
+<h2 id="搭建环境">搭建环境</h2>
+<h3 id="搭建数据库">搭建数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="n">mybatis</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">mybatis</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="n">pwd</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">pwd</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;李四&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;王五&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;赵六&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;肖七&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="新建项目">新建项目</h3>
+<ol>
+<li>
+<p>新建一个普通的maven&rsquo;项目（狂神教程是先建一个大的maven项目然后在里面建小项目）</p>
+<p>有一个问题：建立了maven06之后删除再建立显示maven06存在，在父目录里面删除后还有</p>
+</li>
+<li>
+<p>删除src目录</p>
+</li>
+<li>
+<p>导入maven依赖</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">    <span class="c">&lt;!--daoruyilai--&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>8.0.25<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.mybatis<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>mybatis<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.5.7<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>4.12<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用mybatis的基础配置">使用mybatis的基础配置</h3>
+<h4 id="编写mybatis的核心配置文件">编写mybatis的核心配置文件</h4>
+<p>在resource文件夹下建立mybatis-config.xml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration
+</span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
+</span><span class="cp">        &#34;http://mybatis.org/dtd/mybatis-3-config.dtd&#34;&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;environments</span> <span class="na">default=</span><span class="s">&#34;development&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;environment</span> <span class="na">id=</span><span class="s">&#34;development&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;transactionManager</span> <span class="na">type=</span><span class="s">&#34;JDBC&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;dataSource</span> <span class="na">type=</span><span class="s">&#34;POOLED&#34;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;driver&#34;</span> <span class="na">value=</span><span class="s">&#34;com.mysql.cj.jdbc.Driver&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;url&#34;</span> <span class="na">value=</span><span class="s">&#34;jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;serverTimezone=Asia/Shanghai&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;username&#34;</span> <span class="na">value=</span><span class="s">&#34;root&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;password&#34;</span> <span class="na">value=</span><span class="s">&#34;123456&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/dataSource&gt;</span>
+        <span class="nt">&lt;/environment&gt;</span>
+    <span class="nt">&lt;/environments&gt;</span>
+<span class="c">&lt;!--每一个mapper.xml都需要在Mybatis核心配置文件中注册！--&gt;</span>
+    <span class="nt">&lt;mappers&gt;</span>
+        <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;UserMapper.xml&#34;</span><span class="nt">&gt;&lt;/mapper&gt;</span>
+    <span class="nt">&lt;/mappers&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>因为使用的是MySQL8.0，注意时区问题</p>
+<h4 id="编写mybatis工具类">编写mybatis工具类</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MybatisUtils</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">SqlSessionFactory</span> <span class="n">sqlSessionFactory</span><span class="o">;</span>
+    <span class="c1">//这里不加static会报空指针异常
+</span><span class="c1"></span>    <span class="kd">static</span><span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 使用mybatis获得sqlSessionFactory对象
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">resource</span> <span class="o">=</span> <span class="s">&#34;mybatis-config.xml&#34;</span><span class="o">;</span>
+            <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">resource</span><span class="o">);</span>
+            <span class="n">sqlSessionFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SqlSessionFactoryBuilder</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="cm">/*
+</span><span class="cm">    * 既然有了 SqlSessionFactory，顾名思义，我们可以从中获得 SqlSession 的实例。
+</span><span class="cm">    * SqlSession 提供了在数据库执行 SQL 命令所需的所有方法。
+</span><span class="cm">    * 你可以通过 SqlSession 实例来直接执行已映射的 SQL 语句。例如：
+</span><span class="cm">    * */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">SqlSession</span> <span class="nf">getSqlSession</span><span class="o">(){</span>
+<span class="c1">//        SqlSession sqlSession = sqlSessionFactory.openSession();
+</span><span class="c1">//        return sqlSession;
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">sqlSessionFactory</span><span class="o">.</span><span class="na">openSession</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>参考官方文档，编写工具类的原因是能够更简便的开发</p>
+<h2 id="实现crud">实现CRUD</h2>
+<p>在lorry下新建maaper文件下存放接口，接口命名为UserMapper</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserMapper</span> <span class="o">{</span>
+    <span class="c1">//查询全部用户
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUserList</span><span class="o">();</span>
+    <span class="c1">//根据ID查询用户
+</span><span class="c1"></span>    <span class="n">User</span> <span class="nf">getUserById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+    <span class="c1">//map
+</span><span class="c1"></span>    <span class="n">User</span> <span class="nf">getUserById2</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="n">map</span><span class="o">);</span>
+    <span class="c1">//insert一个用户
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+    <span class="c1">//万能的map
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">addUser2</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="n">map</span><span class="o">);</span>
+    <span class="c1">//修改用户
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">updateUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+    <span class="c1">//删除用户
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">deleteUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUserLike</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在lorry下新建pojo文件夹放实体类并生成有参无参构造get set方法和toString</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">user_id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">user_name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">user_pwd</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在resource下新建UserMapper.xml文件</p>
+<p>UserMapper.xml需要在mybatis-config.xml下注册</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--每一个mapper.xml都需要在Mybatis核心配置文件中注册！--&gt;</span>
+    <span class="nt">&lt;mappers&gt;</span>
+        <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;UserMapper.xml&#34;</span><span class="nt">&gt;&lt;/mapper&gt;</span>
+    <span class="nt">&lt;/mappers&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>配置可以写resource也可以写class，写class直接对应着类，用注释的时候常用</p>
+<p>每一个namespace对应一个Mapper接口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">        &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+<span class="c">&lt;!--namesapce绑定一个个对应的Dao/mapper接口--&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.lorry.mapper.UserMapper&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserList&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+        select * from mybatis.user
+    <span class="nt">&lt;/select&gt;</span>
+
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserById&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+        select * from mybatis.user where user_id = #{id}
+    <span class="nt">&lt;/select&gt;</span>
+
+    <span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;addUser&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+        insert into mybatis.user(user_id, user_name, user_pwd) value (#{user_id}, #{user_name}, #{user_pwd});
+    <span class="nt">&lt;/insert&gt;</span>
+
+    <span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;updateUser&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+        update mybatis.user
+        set user_name=#{user_name}, user_pwd=#{user_pwd}
+        where user_id=#{user_id};
+    <span class="nt">&lt;/update&gt;</span>
+
+    <span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;deleteUser&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+        delete
+        from mybatis.user
+        where user_id=#{user_id};
+    <span class="nt">&lt;/delete&gt;</span>
+    <span class="c">&lt;!--使用map，传递map中的key, 实体类或数据库里面的表字段或者参数过多，考虑使用map--&gt;</span>
+    <span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;addUser2&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span><span class="nt">&gt;</span>
+        insert into mybatis.user(user_id, user_name, user_pwd) value (#{id}, #{name}, #{pwd});
+    <span class="nt">&lt;/insert&gt;</span>
+
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserById2&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+        select * from mybatis.user where user_id = #{id} and user_name = #{name}
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserLike&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+            select * from mybatis.user where user_name like concat(&#39;%&#39;,#{name},&#39;%&#39;);
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>增删改需要提交事务，可以在工具类里面修改默认提交</p>
+<h3 id="测试">测试</h3>
+<p>这里主要用到了mybatis的工具类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+
+    <span class="cm">/*
+</span><span class="cm">        * 从SqlSession执行sql
+</span><span class="cm">        * 先拿到sql
+</span><span class="cm">        * UserMapper是UserDao的实现类
+</span><span class="cm">        *面向接口编程所以我们们拿到接口“UserDao.class”就可以
+</span><span class="cm">        * 返回后就可以执行接口的方法了
+</span><span class="cm">        * */</span>
+    <span class="c1">//第一步获得SqlSession对象
+</span><span class="c1"></span>    <span class="c1">//这里使用了try-with-resources不必写sqlSession.close();
+</span><span class="c1"></span>    <span class="k">try</span><span class="o">(</span><span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">()){</span>
+        <span class="c1">//方式1：执行SQL
+</span><span class="c1"></span>        <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userList</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getUserList</span><span class="o">();</span>
+        <span class="c1">//方式2：不推荐使用
+</span><span class="c1"></span>        <span class="c1">//        List&lt;User&gt; userList = sqlSession.selectList(&#34;com.lorry.dao.UserDao.getUserList&#34;);
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">userList</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//输出的是地址原因是没写toString
+</span><span class="c1"></span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="map传递参数">Map传递参数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--使用map，传递map中的key, 实体类或数据库里面的表字段或者参数过多，考虑使用map--&gt;</span>
+<span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;addUser2&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span><span class="nt">&gt;</span>
+    insert into mybatis.user(user_id, user_name, user_pwd) value (#{id}, #{name}, #{pwd});
+<span class="nt">&lt;/insert&gt;</span>
+
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserById2&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.lorry.pojo.User&#34;</span><span class="nt">&gt;</span>
+    select * from mybatis.user where user_id = #{id} and user_name = #{name}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUserById2</span><span class="o">(){</span>
+    <span class="k">try</span><span class="o">(</span><span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">()){</span>
+        <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">,</span><span class="n">2</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span><span class="s">&#34;梅世杰&#34;</span><span class="o">);</span>
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getUserById2</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>**使用map优点：**如果一个表中的字段非常多而需要的字段只有少数时，new一个实体对象显然很麻烦，需要对所有的字段都进行一次赋值。使用map传值可以更方便的实现需要进行的操作。如：修改用户密码时，只需要传入id和密码即可，而无需new一个用户对象。</p>
+<h2 id="mybatis的模糊查询">mybatis的模糊查询</h2>
+<h3 id="方式一">方式一：</h3>
+<p>手动添加“%” 通配符</p>
+<ul>
+<li>xml配置：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--模糊查询--&gt;</span><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;fuzzyQuery&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bin.pojo.Book&#34;</span><span class="nt">&gt;</span>    select * from mybatis.book where bookName like #{info};<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">fuzzyQuery</span><span class="o">(){</span>    
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>    
+    <span class="n">BookMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">BookMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>    
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="n">books</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">fuzzyQuery</span><span class="o">(</span><span class="s">&#34;%萨%&#34;</span><span class="o">);</span>    
+    <span class="k">for</span> <span class="o">(</span><span class="n">Book</span> <span class="n">book</span> <span class="o">:</span> <span class="n">books</span><span class="o">)</span> 
+    <span class="o">{</span>        
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>    
+    <span class="o">}</span>    
+    <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>**说明：**需要手动添加”%”通配符，显然这种方式很麻烦，并且如果忘记添加通配符的话就会变成普通的查询语句，匹配全部字符查询。</p>
+<ul>
+<li>缺点：
+<ul>
+<li>麻烦</li>
+<li>易出错</li>
+</ul>
+</li>
+</ul>
+<h3 id="方式二">方式二</h3>
+<p>在xml配置文件中添加”%”通配符，拼接字符串形式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;fuzzyQuery&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bin.pojo.Book&#34;</span><span class="nt">&gt;</span>    
+    select * from mybatis.book where bookName like &#39;%${info}%&#39;;
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>**说明：**在mapper.xml配置文件中添加”%”通配符，但是需要用单引号将其包裹住，但是用单引号裹住之后#{}就无法被识别，要改成${}这种拼接字符串的形式。虽然通过方式二优化了方式一的缺点，但同时也造成了SQL安全性的问题，也就是用户可以进行SQL注入。</p>
+<ul>
+<li>缺点：
+<ul>
+<li>不安全，可进行SQL注入</li>
+</ul>
+</li>
+</ul>
+<h3 id="方式三">方式三</h3>
+<p>在xml配置文件中添加”%”通配符，借助mysql函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;fuzzyQuery&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bin.pojo.Book&#34;</span><span class="nt">&gt;</span>    
+    select * from mybatis.book where bookName like concat(&#39;%&#39;,#{info},&#39;%&#39;);<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>**说明：**解决了SQL注入且能在配置文件中写”%”通配符的问题，完美实现了模糊查询</p>
+<ul>
+<li>优点：
+<ul>
+<li>安全</li>
+<li>方便</li>
+</ul>
+</li>
+</ul>
+<h3 id="方式四">方式四</h3>
+<p>与方式三一样使用mysql函数，但使的用是${}形式，不过需要用单引号包裹住</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;fuzzyQuery&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bin.pojo.Book&#34;</span><span class="nt">&gt;</span>    
+    select * from mybatis.book where bookName like concat(&#39;%&#39;,&#39;${info}&#39;,&#39;%&#39;);<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="总结">总结：</h4>
+<ul>
+<li>#{}是预编译处理，mybatis在处理#{}时，会将其替换成”?”，再调用PreparedStatement的set方法来赋值。</li>
+<li>${}是拼接字符串，将接收到的参数的内容不加任何修饰的拼接在SQL语句中，会引发SQL注入问题。</li>
+</ul>
+<h1 id="配置解析">配置解析</h1>
+<h2 id="核心配置">核心配置</h2>
+<ul>
+<li>MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">configuration（配置）
+properties（属性）
+settings（设置）
+typeAliases（类型别名）
+typeHandlers（类型处理器）
+objectFactory（对象工厂）
+plugins（插件）
+environments（环境配置）
+environment（环境变量）
+transactionManager（事务管理器）
+dataSource（数据源）
+databaseIdProvider（数据库厂商标识）
+mappers（映射器）
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="环境配置">环境配置</h3>
+<p>MyBatis可以配置成适应多种环境</p>
+<p><strong>尽管可以配置多个环境，但每个 SqlSessionFactory 实例只能选择一种环境。</strong></p>
+<ul>
+<li>Mybatis默认的事务管理器是JDBC</li>
+<li>连接池：POOLED</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-XML" data-lang="XML"><span class="nt">&lt;transactionManager</span> <span class="na">type=</span><span class="s">&#34;JDBC&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dataSource</span> <span class="na">type=</span><span class="s">&#34;POOLED&#34;</span><span class="nt">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="属性properties">属性(properties)</h3>
+<p>可以通过properties属性来实现引用配置文件</p>
+<p>这些属性可以在外部进行配置，并可以进行动态替换。可以在典型的 Java 属性文件中配置这些属性，也可以在 properties 元素的子元素中设置。【db.properties 】</p>
+<p>编写一个db.properties</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">driver=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://localhost:3306/mybatis?useSSL=true<span class="err">&amp;</span>useUnicode=true<span class="err">&amp;</span>characterEncoding=UTF-8<span class="err">&amp;</span>serverTimezone=Asia/Shanghai
+username=root
+password=123456
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--引入外部配置文件--&gt;</span>
+    <span class="nt">&lt;properties</span> <span class="na">resource=</span><span class="s">&#34;db.properties&#34;</span><span class="nt">/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>可以直接引入外部文件</li>
+<li>可以在其中增一些属性配置</li>
+<li>如果两个文件有相同的name字段，优先使用外部配置文件的</li>
+</ul>
+<h3 id="类型别名typealiases">类型别名(typeAliases)</h3>
+<h4 id="类取别名">类取别名</h4>
+<ul>
+<li>类型别名是java类型设置一个短的名字</li>
+<li>存在的意义仅在于用来减少类完全限定名的冗余</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--可以给实体类取别名--&gt;</span>
+<span class="nt">&lt;typeAliases&gt;</span>   
+    <span class="nt">&lt;typeAlias</span> <span class="na">type=</span><span class="s">&#34;com.bin.pojo.User&#34;</span> <span class="na">alias=</span><span class="s">&#34;User&#34;</span><span class="nt">/&gt;</span>    
+    <span class="nt">&lt;typeAlias</span> <span class="na">type=</span><span class="s">&#34;com.bin.pojo.Book&#34;</span> <span class="na">alias=</span><span class="s">&#34;Book&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/typeAliases&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="指定包">指定包</h4>
+<p>也可以指定一个包名，mybatis在包名下面搜索需要的javaBean</p>
+<p>没有注解时，它的默认别名为这个类的类名，首字母小写；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;typeAliases&gt;</span>
+    <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;com.lorry.pojo&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/typeAliases&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>若有注解，则别名为其注解值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Alias</span><span class="o">(</span><span class="s">&#34;author&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Author</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在实体类较少的时候，可以使用给类取别名</li>
+<li>在实体类十分多时，可以使用指定包</li>
+</ul>
+<h1 id="生命周期和作用域">生命周期和作用域</h1>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd0e12f71-934d-4aff-ac34-f37036d8a50e.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd0e12f71-934d-4aff-ac34-f37036d8a50e.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd0e12f71-934d-4aff-ac34-f37036d8a50e.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd0e12f71-934d-4aff-ac34-f37036d8a50e.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudyd0e12f71-934d-4aff-ac34-f37036d8a50e.png"
+        title="img" /></p>
+<p>生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题</p>
+<p><strong>SqlSessionFactoryBuilder：</strong></p>
+<ul>
+<li>一旦创建SqlSessionFactory就不需要它了</li>
+<li>局部变量</li>
+</ul>
+<p><strong>SqlSessionFactory：</strong></p>
+<ul>
+<li>可以看成数据库连接池</li>
+<li>一旦被创建就应该在应用运行期间一直存在，<strong>没有任何理由丢弃或者重新创建另一个实例</strong></li>
+<li>SqlSessionFactory的最佳作用域是应用作用域</li>
+<li>简单的是使用单例模式或者静态单例模式</li>
+</ul>
+<p><strong>SqlSession：</strong></p>
+<ul>
+<li>相当于连接到连接池的一个请求</li>
+<li>SqlSession的实例不是线程安全的，所以不能被共享</li>
+<li>它的最佳作用域是请求或方法作用域</li>
+<li>用完之后需关闭，否则会浪费资源</li>
+</ul>
+<p>SqlSessionFactory可以创建多个SqlSession，每个sqlSession都可以创建多个Mapper</p>
+<p>一个Mapper代表着一个具体的业务</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudye32c7f81-214f-4c63-b370-d8249cdeff5c.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudye32c7f81-214f-4c63-b370-d8249cdeff5c.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudye32c7f81-214f-4c63-b370-d8249cdeff5c.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudye32c7f81-214f-4c63-b370-d8249cdeff5c.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudye32c7f81-214f-4c63-b370-d8249cdeff5c.png"
+        title="img" /></p>
+<h1 id="解决属性名和字段名不一致的问题">解决属性名和字段名不一致的问题</h1>
+<p>数据库中的字段</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725152739364.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725152739364.png, /mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725152739364.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725152739364.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/image-20210725152739364.png"
+        title="img" /></p>
+<p>实体类的属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="n">user_id</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">user_name</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">user_password</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>解决办法：</p>
+<ol>
+<li>
+<p>起别名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="n">user_name</span><span class="p">,</span><span class="n">user_pwd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">user_password</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mybatis</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">#</span><span class="err">{</span><span class="n">id</span><span class="err">}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><em><strong>resultmap</strong></em></p>
+</li>
+</ol>
+<p>结果集映射</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--结果集映射--&gt;</span>
+    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;UserMap&#34;</span> <span class="na">type=</span><span class="s">&#34;user&#34;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--column数据库中的字段，property实体类中的属性--&gt;</span>
+<span class="c">&lt;!--        &lt;result column=&#34;user_id&#34; property=&#34;user_id&#34;/&gt;--&gt;</span>
+<span class="c">&lt;!--        &lt;result column=&#34;user_name&#34; property=&#34;user_name&#34;/&gt;--&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">column=</span><span class="s">&#34;user_pwd&#34;</span> <span class="na">property=</span><span class="s">&#34;user_password&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserById&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;UserMap&#34;</span><span class="nt">&gt;</span>
+           select * from mybatis.user where user_id = #{id}
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>resultMap</code> 元素是 MyBatis 中最重要最强大的元素</li>
+<li>ResultMap 的设计思想是
+<ul>
+<li>对简单的语句做到零配置</li>
+<li>对于复杂一点的语句，只需要描述语句之间的关系就行了</li>
+</ul>
+</li>
+<li>一样的字段可以不做映射</li>
+</ul>
+<h1 id="日志">日志</h1>
+<h2 id="日志工程">日志工程</h2>
+<p>日志是查找错误的好助手</p>
+<ul>
+<li>SLF4J</li>
+<li>==LOG4J==⭐</li>
+<li>LOG4J2</li>
+<li>JDK_LOGGING</li>
+<li>COMMONS_LOGGING
+<ul>
+<li>==STDOUT_LOGGING==⭐ 标准日志输出</li>
+</ul>
+</li>
+<li>NO_LOGGING</li>
+</ul>
+<p>在mybatis中具体使用哪一个日志实现，在mybatis核心配置文件中设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+    <span class="c">&lt;!--标准的日志工厂实现--&gt;</span>
+    <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;STDOUT_LOGGING&#34;</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!--        &lt;setting name=&#34;logImpl&#34; value=&#34;Log4J&#34;/&gt;--&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="log4j">LOG4J</h2>
+<ul>
+<li>LOG4J是Apache的一个开源项目，通过使用Log4j，我们可以控制日志信息输送的目的地是控制台、文件、GUI组件</li>
+<li>可以控制每一条日志的输出格式</li>
+<li>通过定义每一条日志信息的级别，能够更加细致地控制日志的生成过程</li>
+<li>通过一个配置文件来灵活地进行配置，而不需要修改应用的代码</li>
+</ul>
+<ol>
+<li>导入LOG4J的包</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- https://mvnrepository.com/artifact/log4j/log4j --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>log4j<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>log4j<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.2.17<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>log4j.properties配置</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+log4j.rootLogger=DEBUG,console,file
+#控制台输出的相关设置
+log4j.appender.console = org.apache.log4j.ConsoleAppender
+log4j.appender.console.Target = System.out
+log4j.appender.console.Threshold=DEBUG
+log4j.appender.console.layout = org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=[%c]-%m%n
+#文件输出的相关设置
+log4j.appender.file = org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=./log/lorry.log
+log4j.appender.file.MaxFileSize=10mb
+log4j.appender.file.Threshold=DEBUG
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=[%p][%d{yy-MM-dd}][%c]%m%n
+#日志输出级别
+log4j.logger.org.mybatis=DEBUG
+log4j.logger.java.sql=DEBUG
+log4j.logger.java.sql.Statement=DEBUG
+log4j.logger.java.sql.ResultSet=DEBUG
+log4j.logger.java.sql.PreparedStatement=DEBUG
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>配置log4j为日志实现</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+    <span class="c">&lt;!--标准的日志工厂实现--&gt;</span>
+    <span class="c">&lt;!--        &lt;setting name=&#34;logImpl&#34; value=&#34;STDOUT_LOGGING&#34;/&gt;--&gt;</span>
+    <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;Log4J&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="简单实用">简单实用</h3>
+<ol>
+<li>在使用Log4j的类中，导入包import org.apache.log4j.Logger;</li>
+<li>由于多个类会使用，设置为静态</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725163324898.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725163324898.png, /mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725163324898.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725163324898.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/image-20210725163324898.png"
+        title="img" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;info:进入了testLog4j&#34;</span><span class="o">);</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;debug:进入了testLog4j&#34;</span><span class="o">);</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&#34;error:进入了testLog4j&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="使用mybatis实现分页">使用mybatis实现分页</h1>
+<h2 id="使用limit分页代码在mybatis_04">使用Limit分页（代码在mybatis_04）</h2>
+<ol>
+<li>接口</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="c1">//分页
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUserByLimit</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Mapper.xml</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--//分页--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserByLimit&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+        select * from mybatis.user limit #{startIndex},#{endIndex}
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>测试</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUserByLimit</span><span class="o">(){</span>
+    <span class="k">try</span><span class="o">(</span><span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">()){</span>
+        <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Integer</span><span class="o">&gt;();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;startIndex&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;endIndex&#34;</span><span class="o">,</span><span class="n">4</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userList</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getUserByLimit</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">userList</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;分页查询用户：&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="rewbounds分页">RewBounds分页</h2>
+<ol>
+<li>接口</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 分页2
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">gteUserByRowBounds</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>UserMapper.xml</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;!--</span><span class="c1">//分页2--&gt;
+</span><span class="c1"></span>    <span class="o">&lt;</span><span class="n">select</span> <span class="n">id</span><span class="o">=</span><span class="s">&#34;getUserByRowBounds&#34;</span> <span class="n">parameterType</span><span class="o">=</span><span class="s">&#34;map&#34;</span> <span class="n">resultMap</span><span class="o">=</span><span class="s">&#34;UserMap&#34;</span><span class="o">&gt;</span>
+    <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">mybatis</span><span class="o">.</span><span class="na">user</span>
+    <span class="o">&lt;/</span><span class="n">select</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>测试</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUserByRowBounds</span><span class="o">(){</span>
+    <span class="k">try</span><span class="o">(</span><span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">()){</span>
+        <span class="n">RowBounds</span> <span class="n">rowBounds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RowBounds</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">4</span><span class="o">);</span>
+        <span class="c1">//通过java代码层面实现分页
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userList</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">&#34;com.lorry.mapper.UserMapper.getUserByRowBounds&#34;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="n">rowBounds</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">userList</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="分页插件">分页插件</h2>
+<h1 id="使用注解开发">使用注解开发</h1>
+<h3 id="面向接口编程">面向接口编程</h3>
+<p>之前学到的都是面向对象编程，也学习过接口，但在真正开发中，很多时候我们会选择面向接口编程；
+<strong>根本原因 ： 解耦、可扩展、提高复用，分层开发中，上层不用管具体的实现，大家都遵守共同的标准，使得开发变得更容易，规范性更好</strong>。
+在一个面向对象的系统中，系统的各种功能是由许许多多的不同对象协作完成的，在这种情况下，各个对象内部是如何实现的，对系统设计人员来讲是不那么重要的；
+而各个对象之间的协作关系则成为系统设计的关键。小到不同类之间的通信，大到各模块之间的交互，在系统设计之初都是要着重考虑的，这也是系统设计的主要工作内容。面向接口编程就是按照这种思想来编程。</p>
+<p><strong>关于接口的理解</strong></p>
+<ul>
+<li>接口从更深层次的理解，应是定义（规范，约束）与实现（名实分离的原则）的分离。</li>
+<li>接口的本身反映了系统设计人员对系统的抽象理解。</li>
+<li>接口应有两类：</li>
+<li>第一类是对一个个体的抽象，它可对应为一个抽象体(abstract class)；</li>
+<li>第二类是对一个个体某一方面的抽象，即形成一个抽象面（interface）；</li>
+<li>一个体有可能有多个抽象面。抽象体与抽象面是有区别的。</li>
+</ul>
+<p><strong>三个面向区别</strong></p>
+<ul>
+<li>面向对象是指，我们考虑问题时，以对象为单位，考虑它的属性及方法 .</li>
+<li>面向过程是指，我们考虑问题时，以一个具体的流程（事务过程）为单位，考虑它的实现 .</li>
+<li>接口设计与非接口设计是针对复用技术而言的，与面向对象（过程）不是一个问题.更多的体现就是对系统整体的架构</li>
+</ul>
+<h2 id="使用注解开发-1">使用注解开发</h2>
+<ol>
+<li>注解在接口上实现</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TeacherMapper</span> <span class="o">{</span>
+    <span class="nd">@Select</span><span class="o">(</span><span class="s">&#34;select * from teacher where id = #{tid}&#34;</span><span class="o">)</span>
+    <span class="n">Teacher</span> <span class="nf">getTeacher</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;tid&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>在mybatis-config.xml中绑定接口</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mappers&gt;</span>
+    <span class="nt">&lt;mapper</span> <span class="na">class=</span><span class="s">&#34;com.lorry.mapper.UserMapper&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>测试</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">getUsers</span><span class="o">(){</span>
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+    <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getUsers</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;使用注解查询：&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>本质：反射机制实现</p>
+<p>底层：动态代理</p>
+<h2 id="crud">CRUD</h2>
+<p>在工具类创建的时候可以实现自动提交</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">publicstaticSqlSession</span>  <span class="nf">getSqlSession</span><span class="o">(){</span>
+    
+    <span class="k">return</span> <span class="n">sqlSessionFactory</span><span class="o">.</span><span class="na">openSession</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>编写接口</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserMapper02</span> <span class="o">{</span>
+    <span class="nd">@Select</span><span class="o">(</span><span class="s">&#34;select * from user&#34;</span><span class="o">)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUsers</span><span class="o">();</span>
+    <span class="nd">@Select</span><span class="o">(</span><span class="s">&#34;select * from user where id = #{id}&#34;</span><span class="o">)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUserById</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+    <span class="nd">@Insert</span><span class="o">(</span><span class="s">&#34;insert into user(id,name,pwd) values(#{id},#{name},#{pwd})&#34;</span><span class="o">)</span>
+    <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+    <span class="nd">@Update</span><span class="o">(</span><span class="s">&#34;update user set name=#{name},pwd=#{pwd} where id=#{id}&#34;</span><span class="o">)</span>
+    <span class="kt">int</span> <span class="nf">updateUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+    <span class="nd">@Delete</span><span class="o">(</span><span class="s">&#34;delete from user where id = #{id}&#34;</span><span class="o">)</span>
+    <span class="kt">int</span> <span class="nf">deleteUser</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>
+<p>将接口注册绑定到mybatis-config文件中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mapper</span> <span class="na">class=</span><span class="s">&#34;com.lorry.mapper.UserMapper02&#34;</span><span class="nt">/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>关于
+<a href="https://github.com/Param" target="_self">@Param</a>()注解</p>
+<ul>
+<li>基本类型的参数或String类型需要使用</li>
+<li>引用类型不需要</li>
+<li>只有一个基本类型可以忽略不写，但建议写上</li>
+<li>SQL中引用的是
+<a href="https://github.com/Param" target="_self">@Param</a>()注解中设定的属性名</li>
+</ul>
+<p>#{}和${}的区别：</p>
+<ul>
+<li>#{} 预编译，可避免SQL注入</li>
+<li>${} 拼接字符串，可以被进行SQL注入</li>
+</ul>
+</li>
+</ol>
+<h1 id="lombok">Lombok</h1>
+<ol>
+<li>在IDEA中安装Lombok插件</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725195905638.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725195905638.png, /mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725195905638.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/image-20210725195905638.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/image-20210725195905638.png"
+        title="ima" /></p>
+<ol start="2">
+<li>在项目中导入Lombok的jar包</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.18.20<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>常用的注释</li>
+</ol>
+<ul>
+<li>
+<a href="https://github.com/Data" target="_self">@Data</a> 无参构造、get、set、toString、equals、hashcode</li>
+<li>
+<a href="https://github.com/AllArgsConstructor" target="_self">@AllArgsConstructor</a> 有参构造</li>
+<li>
+<a href="https://github.com/NoArgsConstructor" target="_self">@NoArgsConstructor</a> 无参构造</li>
+</ul>
+<h1 id="多对一处理">多对一处理</h1>
+<h2 id="编写sql创建数据库表">编写SQL，创建数据库表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">teacher</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">teacher</span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;秦老师&#39;</span><span class="p">);</span><span class="w"> 
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="n">fktid</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="o">`</span><span class="n">fktid</span><span class="o">`</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">teacher</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w"> 
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小明&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> 
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小红&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> 
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小张&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> 
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小李&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> 
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小王&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>导入lombok</li>
+<li>创建javaBean(即实体类)</li>
+<li>建立Mapper接口</li>
+<li>建立Mapper.xml文件</li>
+<li>在核心配置文件中绑定mapper接口或配置文件</li>
+<li>测试查询</li>
+</ol>
+<h2 id="按照查询嵌套处理">按照查询嵌套处理</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudent&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentTeacher&#34;</span><span class="nt">&gt;</span>
+        select * from Student
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentTeacher&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;id&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!--多对一处理，1。查询出所有的学生信息 2。根据查询出来的学生的tid，寻找对应的老师--&gt;</span>
+        <span class="c">&lt;!--复杂的属性，我们需要单独处理--&gt;</span>
+        <span class="c">&lt;!--对象就用 association--&gt;</span>
+        <span class="c">&lt;!--集合使用 collection--&gt;</span>
+        <span class="c">&lt;!--复杂的属性，我们需要单独处理，我们用association来操作对象，并加了javaType和select 用select来找Teacher--&gt;</span>
+        <span class="c">&lt;!--用这个column tid去查老师--&gt;</span>
+        <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span> <span class="na">javaType=</span><span class="s">&#34;teacher&#34;</span> <span class="na">select=</span><span class="s">&#34;getTeacher&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+        select * from teacher where id=#{tid}
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;--属性中的引用对象单独处理</span><span class="err">，对象：association，集合：collection--</span><span class="nt">&gt;</span>		
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="按照结果嵌套处理">按照结果嵌套处理</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudentList&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentsTeacher2&#34;</span><span class="nt">&gt;</span>
+    select s.id as sid,s.name as sname,s.tid as tid, t.name as tname
+    from mybatis.student s
+    join mybatis.teacher t
+    on s.tid = t.id;
+<span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentsTeacher2&#34;</span> <span class="na">type=</span><span class="s">&#34;student&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">javaType=</span><span class="s">&#34;teacher&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>多对一查询方式：</p>
+<ul>
+<li>子查询</li>
+<li>联表查询</li>
+</ul>
+<h1 id="一对多处理">一对多处理</h1>
+<ol>
+<li>创建javaBean</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">tid</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Teacher</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="n">students</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="按照查询嵌套处理子查询">按照查询嵌套处理(子查询)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher2&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;TeacherStudent2&#34;</span><span class="nt">&gt;</span>
+        select * from  teacher where id=#{tid}
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;TeacherStudent2&#34;</span> <span class="na">type=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--一样的省略--&gt;</span>
+        <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;students&#34;</span>  <span class="na">javaType=</span><span class="s">&#34;ArrayList&#34;</span> <span class="na">ofType=</span><span class="s">&#34;Student&#34;</span> <span class="na">column=</span><span class="s">&#34;id&#34;</span> <span class="na">select=</span><span class="s">&#34;getStudentByTeacherId&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudentByTeacherId&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--这里#{里面的可以随便写，第一个SQL的不行}--&gt;</span>
+        select * from student where tid=#{kkkk}
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>关联（对象）：association 【多对一】</li>
+<li>集合：collection 【一对多】</li>
+<li>javaType 用来指定实体类中的属性类型</li>
+<li>ofType 用来指定映射到List或集合中的pojo类型，泛型中约束的类型</li>
+</ol>
+<p><strong>注意点：</strong></p>
+<ul>
+<li>保证SQL可读性，尽量保证通俗易懂</li>
+<li>注意一对多和多对一中属性名和字段的问题</li>
+<li>若错误不好排查，可以使用日志，建议使用Log4j</li>
+</ul>
+<p><strong>面试高频：</strong></p>
+<ul>
+<li>MySQL引擎</li>
+<li>innoDB底层原理</li>
+<li>索引</li>
+<li>索引优化</li>
+</ul>
+<h1 id="动态sql">动态SQL</h1>
+<p><strong>动态SQL是根据不同条件来生成不同的SQL语句</strong></p>
+<h2 id="编写sql创建数据库表-1">编写SQL，创建数据库表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">blog</span><span class="o">`</span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客标题&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">author</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客作者&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">create_time</span><span class="o">`</span><span class="w"> </span><span class="n">DATETIME</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;创建时间&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">views</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;浏览量&#39;</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试环境搭建">测试环境搭建</h2>
+<ol>
+<li>导包</li>
+<li>创建javaBean</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">createTime</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">views</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>建立Mapper接口</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BlogMapper</span> <span class="o">{</span>
+    <span class="c1">//插入数据
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Blog</span> <span class="n">blog</span><span class="o">);</span>
+
+    <span class="c1">//查询博客
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Blog</span><span class="o">&gt;</span> <span class="nf">queryBlogIF</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">);</span>
+
+    <span class="c1">//
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Blog</span><span class="o">&gt;</span> <span class="nf">queryBlogChoose</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">);</span>
+
+    <span class="kt">int</span> <span class="nf">updateBlog</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">);</span>
+
+    <span class="c1">//查询第1-2-3号记录的博客
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Blog</span><span class="o">&gt;</span> <span class="nf">queryBlogForeach</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>建立Mapper.xml文件夹</li>
+<li>在mybatis-config文件中绑定mapper接口或配置文件</li>
+<li>测试查询</li>
+</ol>
+<h2 id="if">IF</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBlogIF&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;blog&#34;</span><span class="nt">&gt;</span>
+    select * from mybatis.blog
+    <span class="nt">&lt;where&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;title != null&#34;</span><span class="nt">&gt;</span>
+            title = #{title}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;author != null&#34;</span><span class="nt">&gt;</span>
+            and author = #{author}
+        <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;/where&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>常用的部分可以作为SQL片段 在需要使用的地方使用include标签引用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;sql</span> <span class="na">id=</span><span class="s">&#34;if-title-author&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;title != null&#34;</span><span class="nt">&gt;</span>
+        title = #{title}
+    <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;author != null&#34;</span><span class="nt">&gt;</span>
+        and author = #{author}
+    <span class="nt">&lt;/if&gt;</span>
+<span class="nt">&lt;/sql&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBlogIF&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;blog&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!--        select * from blog--&gt;</span>
+<span class="c">&lt;!--        &lt;where&gt;--&gt;</span>
+<span class="c">&lt;!--            &lt;if test=&#34;title != null&#34;&gt;--&gt;</span>
+<span class="c">&lt;!--                title = #{title}--&gt;</span>
+<span class="c">&lt;!--            &lt;/if&gt;--&gt;</span>
+<span class="c">&lt;!--            &lt;if test=&#34;author != null&#34;&gt;--&gt;</span>
+<span class="c">&lt;!--                and author = #{author}--&gt;</span>
+<span class="c">&lt;!--            &lt;/if&gt;--&gt;</span>
+<span class="c">&lt;!--        &lt;/where&gt;--&gt;</span>
+        select * from blog
+        <span class="nt">&lt;where&gt;</span>
+            <span class="nt">&lt;include</span> <span class="na">refid=</span><span class="s">&#34;if-title-author&#34;</span><span class="nt">&gt;&lt;/include&gt;</span>
+        <span class="nt">&lt;/where&gt;</span>
+
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="choose">choose</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBlogChoose&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;blog&#34;</span><span class="nt">&gt;</span>
+
+        select * from blog
+        <span class="nt">&lt;where&gt;</span>
+            <span class="nt">&lt;choose&gt;</span>
+                <span class="nt">&lt;when</span> <span class="na">test=</span><span class="s">&#34;title != null&#34;</span><span class="nt">&gt;</span>
+                    title = #{title}
+                <span class="nt">&lt;/when&gt;</span>
+                <span class="nt">&lt;when</span> <span class="na">test=</span><span class="s">&#34;author != null&#34;</span><span class="nt">&gt;</span>
+                    and author = #{author}
+                <span class="nt">&lt;/when&gt;</span>
+                <span class="nt">&lt;otherwise&gt;</span>
+                    and views = #{views}
+                <span class="nt">&lt;/otherwise&gt;</span>
+            <span class="nt">&lt;/choose&gt;</span>
+        <span class="nt">&lt;/where&gt;</span>
+
+    <span class="nt">&lt;/select&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="set">set</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;updateBlog&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span><span class="nt">&gt;</span>
+    update blog
+    <span class="nt">&lt;set&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;title != null&#34;</span><span class="nt">&gt;</span>
+            title = #{title},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;author != null&#34;</span><span class="nt">&gt;</span>
+            author = #{author}
+        <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;/set&gt;</span>
+    where id = #{id}
+<span class="nt">&lt;/update&gt;</span>
+<span class="c">&lt;!--我们现在传递一个万能的map，map里面放一个集合
+</span><span class="c">select * from blog where 1=1 and (id=1 or id=2 or id=3)
+</span><span class="c">--&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="foreach">Foreach</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBlogForeach&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;blog&#34;</span><span class="nt">&gt;</span>
+    select * from mybatis.blog
+    <span class="nt">&lt;where&gt;</span>
+        <span class="c">&lt;!--
+</span><span class="c">        id in
+</span><span class="c">        &lt;foreach collection=&#34;ids&#34; item=&#34;id&#34; open=&#34;(&#34; separator=&#34;,&#34; close=&#34;)&#34;&gt;
+</span><span class="c">            #{id}
+</span><span class="c">        &lt;/foreach&gt;
+</span><span class="c">--&gt;</span>
+        <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;ids&#34;</span> <span class="na">item=</span><span class="s">&#34;id&#34;</span>  <span class="na">separator=</span><span class="s">&#34;or&#34;</span><span class="nt">&gt;</span>
+            id = #{id}
+        <span class="nt">&lt;/foreach&gt;</span>
+    <span class="nt">&lt;/where&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>两种foreach SQL语句的区别</p>
+<p>select * from mybatis.blog WHERE id in ( ? , ? , ? )</p>
+<p>select * from mybatis.blog WHERE id = ? or id = ? or id = ?</p>
+<h2 id="trim">trim</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;updateBlogTrim&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span><span class="nt">&gt;</span>
+    update mybatis.blog
+    <span class="nt">&lt;trim</span> <span class="na">prefix=</span><span class="s">&#34;set&#34;</span> <span class="na">suffixOverrides=</span><span class="s">&#34;,&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;title != null&#34;</span><span class="nt">&gt;</span>
+            title = #{title},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;author != null&#34;</span><span class="nt">&gt;</span>
+            author = #{author},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;views != null&#34;</span><span class="nt">&gt;</span>
+            views = #{views}
+        <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;/trim&gt;</span>
+    where id = #{id};
+<span class="nt">&lt;/update&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBlogTrim&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;blog&#34;</span><span class="nt">&gt;</span>
+    select * from mybatis.blog
+    <span class="nt">&lt;trim</span> <span class="na">prefix=</span><span class="s">&#34;WHERE&#34;</span> <span class="na">prefixOverrides=</span><span class="s">&#34;AND |OR &#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;title != null&#34;</span><span class="nt">&gt;</span>
+            title = #{title}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;author != null&#34;</span><span class="nt">&gt;</span>
+            and author = #{author}
+        <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;/trim&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>总结：</strong></p>
+<p>where元素在子元素存在（有值）的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，where 元素也会将它们去除。</p>
+<p>注意事项：</p>
+<ul>
+<li>最好基于单表来定义sql片段</li>
+<li>不要存在where标签</li>
+</ul>
+<h1 id="缓存">缓存</h1>
+<p>**查询：**连接数据库，耗资源！一次查询的结果，给他暂存在一个可以直接取到的地方！—&gt;内存：缓存我们再次查询相同数据的时候，直接走缓存，就不用走数据库了</p>
+<ol>
+<li>什么是缓存 [ Cache ]？
+<ul>
+<li>存在内存中的临时数据。</li>
+<li>将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。</li>
+</ul>
+</li>
+<li>为什么使用缓存？
+<ul>
+<li>减少和数据库的交互次数，减少系统开销，提高系统效率。</li>
+</ul>
+</li>
+<li>什么样的数据能使用缓存？
+<ul>
+<li>经常查询并且不经常改变的数据。【可以使用缓存】</li>
+</ul>
+</li>
+</ol>
+<h2 id="mybatis缓存">mybatis缓存</h2>
+<ul>
+<li>
+<p>MyBatis包含一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存。缓存可以极大的提升查询效率。</p>
+</li>
+<li>
+<p>MyBatis系统中默认定义了两级缓存：</p>
+<p>一级缓存和二级缓存</p>
+<ul>
+<li>默认情况下，只有一级缓存开启。（SqlSession级别的缓存，也称为本地缓存）</li>
+<li>二级缓存需要手动开启和配置，他是基于namespace级别的缓存。</li>
+<li>为了提高扩展性，MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存</li>
+</ul>
+</li>
+</ul>
+<h2 id="一级缓存">一级缓存</h2>
+<ul>
+<li>一级缓存也叫本地缓存： SqlSession
+<ul>
+<li>与数据库同一次会话期间查询到的数据会放在本地缓存中。</li>
+<li>以后如果需要获取相同的数据，直接从缓存中拿，没必须再去查询数据库；</li>
+</ul>
+</li>
+</ul>
+<p>测试步骤：</p>
+<ol>
+<li>开启日志！</li>
+<li>测试在一个Sesion中查询两次相同记录</li>
+<li>查看日志输出</li>
+</ol>
+<p>缓存失效的情况：</p>
+<ol>
+<li>查询不同的东西</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">queryUserById</span><span class="o">(){</span>
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+    <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+    <span class="n">User</span> <span class="n">user1</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="n">user1</span><span class="o">));</span>
+    <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd485aa2d-ce15-4227-9902-251ebc718db3.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd485aa2d-ce15-4227-9902-251ebc718db3.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd485aa2d-ce15-4227-9902-251ebc718db3.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyd485aa2d-ce15-4227-9902-251ebc718db3.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudyd485aa2d-ce15-4227-9902-251ebc718db3.png"
+        title="img" /></p>
+<ol start="2">
+<li>增删改操作，可能会改变原来的数据，所以必定会刷新缓存！</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">queryUserById</span><span class="o">(){</span>
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+    <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="na">updateUser</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="n">2</span><span class="o">,</span><span class="s">&#34;张三&#34;</span><span class="o">,</span><span class="s">&#34;123456&#34;</span><span class="o">));</span>
+    <span class="n">User</span> <span class="n">user1</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="n">user1</span><span class="o">));</span>
+    <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyf53fb35b-30dd-47c8-9c53-b613cd05d222.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyf53fb35b-30dd-47c8-9c53-b613cd05d222.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyf53fb35b-30dd-47c8-9c53-b613cd05d222.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudyf53fb35b-30dd-47c8-9c53-b613cd05d222.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudyf53fb35b-30dd-47c8-9c53-b613cd05d222.png"
+        title="img" /></p>
+<ol start="3">
+<li>查询不同的Mapper.xml</li>
+<li>手动清理缓存！</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">queryUserById</span><span class="o">(){</span>
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+    <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="o">);</span>
+    <span class="c1">// 清除缓存
+</span><span class="c1"></span>    <span class="n">sqlSession</span><span class="o">.</span><span class="na">clearCache</span><span class="o">();</span>
+    <span class="n">User</span> <span class="n">user1</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user1</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="n">user1</span><span class="o">));</span>
+    <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy60d048f1-349a-475e-9baf-b00a4858e68b.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy60d048f1-349a-475e-9baf-b00a4858e68b.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy60d048f1-349a-475e-9baf-b00a4858e68b.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy60d048f1-349a-475e-9baf-b00a4858e68b.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudy60d048f1-349a-475e-9baf-b00a4858e68b.png"
+        title="img" /></p>
+<h2 id="二级缓存">二级缓存</h2>
+<ul>
+<li>二级缓存也叫全局缓存，一级缓存作用域太低了，所以诞生了二级缓存</li>
+<li>基于namespace级别的缓存，一个名称空间，对应一个二级缓存；</li>
+<li>工作机制
+<ul>
+<li>一个会话查询一条数据，这个数据就会被放在当前会话的一级缓存中；</li>
+<li>如果当前会话关闭了，这个会话对应的一级缓存就没了；但是我们想要的是，会话关闭了，一级缓存中的数据被保存到二级缓存中；</li>
+<li>新的会话查询信息，就可以从二级缓存中获取内容；</li>
+<li>不同的mapper查出的数据会放在自己对应的缓存（map）中；</li>
+</ul>
+</li>
+</ul>
+<p>步骤：</p>
+<ol>
+<li>开启全局缓存</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--显示的开启全局缓存--&gt;</span>
+<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;cacheEnabled&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>在要使用二级缓存的Mapper中开启</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--在当前mapper.xml中使用二级缓存--&gt;</span>
+<span class="nt">&lt;cache/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>自定义参数</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--在当前Mapper.xml中使用二级缓存--&gt;</span>
+<span class="nt">&lt;cache</span>
+       <span class="na">eviction=</span><span class="s">&#34;FIFO&#34;</span>
+       <span class="na">flushInterval=</span><span class="s">&#34;60000&#34;</span>
+       <span class="na">size=</span><span class="s">&#34;512&#34;</span>
+       <span class="na">readOnly=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>测试</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">queryUserById</span><span class="o">(){</span>
+<span class="n">SqlSession</span> <span class="n">sqlSession1</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+<span class="n">SqlSession</span> <span class="n">sqlSession2</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+<span class="n">UserMapper</span> <span class="n">mapper1</span> <span class="o">=</span> <span class="n">sqlSession1</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">UserMapper</span> <span class="n">mapper2</span> <span class="o">=</span> <span class="n">sqlSession2</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">User</span> <span class="n">user1</span> <span class="o">=</span> <span class="n">mapper1</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user1</span><span class="o">);</span>
+<span class="n">sqlSession1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">User</span> <span class="n">user2</span> <span class="o">=</span> <span class="n">mapper2</span><span class="o">.</span><span class="na">queryUserById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="n">user1</span><span class="o">);</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;一级缓存：&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">user1</span> <span class="o">==</span> <span class="n">user2</span><span class="o">));</span>
+<span class="n">sqlSession2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy58c20070-fffe-4753-aace-3fdd84e7e05a.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy58c20070-fffe-4753-aace-3fdd84e7e05a.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy58c20070-fffe-4753-aace-3fdd84e7e05a.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy58c20070-fffe-4753-aace-3fdd84e7e05a.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudy58c20070-fffe-4753-aace-3fdd84e7e05a.png"
+        title="img" /></p>
+<p>**问题：**我们需要将实体类序列化！否则就会报错！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Caused</span> <span class="n">by</span><span class="o">:</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">NotSerializableException</span><span class="o">:</span> <span class="n">com</span><span class="o">.</span><span class="na">bin</span><span class="o">.</span><span class="na">pojo</span><span class="o">.</span><span class="na">User</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>小结：</p>
+<ul>
+<li>只要开启了二级缓存，在同一个Mapper下就有效</li>
+<li>所有的数据都会先放在一级缓存中；</li>
+<li>只有当会话提交，或者关闭的时候，才会提交到二级缓冲中！</li>
+</ul>
+<h2 id="缓存原理">缓存原理</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy7f3f8e72-a720-489f-a8b9-b7258aa72cdc-1627263018627.png"
+        data-srcset="/mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy7f3f8e72-a720-489f-a8b9-b7258aa72cdc-1627263018627.png, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy7f3f8e72-a720-489f-a8b9-b7258aa72cdc-1627263018627.png 1.5x, /mybatis%e7%ac%94%e8%ae%b0.assets/kuangstudy7f3f8e72-a720-489f-a8b9-b7258aa72cdc-1627263018627.png 2x"
+        data-sizes="auto"
+        alt="/mybatis笔记.assets/kuangstudy7f3f8e72-a720-489f-a8b9-b7258aa72cdc-1627263018627.png"
+        title="img" /></p>
+<h2 id="自定义缓存-ehcache">自定义缓存-ehcache</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">Ehcache是一种广泛使用的开源Java分布式缓存。主要面向通用缓存`
+</code></pre></td></tr></table>
+</div>
+</div><p>先要导包！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.mybatis.caches/mybatis-ehcache --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.mybatis.caches<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>mybatis-ehcache<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在mapper中指定使用我们的ehcache缓存实现！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--在当前Mapper.xml中使用二级缓存--&gt;</span>
+<span class="nt">&lt;cache</span> <span class="na">type=</span><span class="s">&#34;org.mybatis.caches.ehcache.EhcacheCache&#34;</span><span class="nt">/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="mybatis详细的执行流程">**Mybatis详细的执行流程！**⭐</h1>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/springboot_autoconfig/" class="next" rel="next" title="Springboot_autoconfig">Springboot_autoconfig<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">lorry</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
